@@ -1,0 +1,131 @@
+package stackCalculator;
+
+import java.util.*;
+import java.util.Scanner;
+
+public class StackCalculator {
+	
+	Stack<Double> calculator = new Stack<Double>();
+	String command = "";
+	
+	static void displayWelcomeMessage()
+	{
+		System.out.println("Welcome to the Stack Calculator.");
+		System.out.println();
+	}
+	
+	static void displayCommands()
+	{
+		System.out.println("Commands: push n, add, sub, mult, div, list, clear, or quit.");		
+	}
+	
+	void push(double x)
+	{
+		calculator.push(x);
+	}
+
+	double pop()
+	{
+		return calculator.pop();
+	}
+	
+	int size()
+	{
+		return calculator.size();
+	}
+	
+	void getValues()
+	{
+		if(calculator.size() == 0) 
+		{
+			System.out.print("Empty");
+			System.out.println();
+		}
+		else
+		{
+			for(double x:calculator)
+			{
+				System.out.println(x);
+			}
+		}
+	} 
+
+	void clearStack() 
+	{
+		calculator = new Stack<Double>();
+	}
+	
+	double add()
+	{
+		double x = pop() + pop();
+		push(x);
+		return x;
+	}
+	
+	double sub()
+	{
+		double x = pop() - pop();
+		push(x);
+		return x;
+	}
+	
+	
+	
+	public static void main(String[] args)
+	{
+		Scanner input = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
+		
+		StackCalculator calc = new StackCalculator();
+		displayWelcomeMessage();
+		displayCommands();
+		
+		while(true) 
+		{
+			System.out.println();
+			System.out.println("stack>");
+			calc.command = input.next();
+			if(calc.command.equals("push"))
+			{
+				calc.push(scanner.nextInt());
+			}
+			if(calc.command.equals("add"))
+			{
+				double x = calc.pop() + calc.pop();
+				calc.push(x);
+			}
+			if(calc.command.equals("sub"))
+			{
+				double x = calc.pop() - calc.pop();
+				calc.push(x);
+			}
+			if(calc.command.equals("mult"))
+			{
+				double x = calc.pop() * calc.pop();
+				calc.push(x);
+			}
+			if(calc.command.equals("div"))
+			{
+				double x = calc.pop() / calc.pop();
+				calc.push(x);
+			}
+			if(calc.command.equals("list"))
+			{
+				calc.getValues();
+			}
+			if(calc.command.equals("clear"))
+			{
+				calc.clearStack();
+			}
+			if(calc.command.equals("quit"))
+			{
+				break;
+			}
+			
+		}
+		input.close();
+		scanner.close();
+		System.out.println();
+		System.out.println("Thanks for using the Stack Calculator");
+	}
+}
